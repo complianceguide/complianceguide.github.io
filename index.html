@@ -1,0 +1,1403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home | Compliance Guide</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-dark: #0A1929;
+            --primary: #1A2332;
+            --accent: #00D9C0;
+            --accent-hover: #00FBE0;
+            --text-light: #E8EAED;
+            --text-muted: #9AA0A6;
+            --card-bg: #1E2735;
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--primary-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(26, 35, 50, 0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            background: rgba(10, 25, 41, 0.95);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.25rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--text-light);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            box-shadow: 0 4px 15px rgba(0, 217, 192, 0.3);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-light);
+            transform: translateY(-2px);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            background: var(--accent);
+            color: var(--primary-dark);
+            padding: 0.75rem 1.75rem;
+            border-radius: 10px;
+            font-weight: 700;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 217, 192, 0.3);
+        }
+
+        .nav-cta:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 217, 192, 0.4);
+        }
+
+        .nav-cta::after {
+            display: none;
+        }
+
+        .hero {
+            padding: 160px 2rem 120px;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(0, 217, 192, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: pulse-glow 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(0, 251, 224, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: pulse-glow 5s ease-in-out infinite reverse;
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.6rem 1.25rem;
+            background: rgba(0, 217, 192, 0.1);
+            border: 1px solid rgba(0, 217, 192, 0.3);
+            border-radius: 50px;
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: pulse-dot 2s infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% { 
+                opacity: 1;
+                box-shadow: 0 0 0 0 rgba(0, 217, 192, 0.7);
+            }
+            50% { 
+                opacity: 0.7;
+                box-shadow: 0 0 0 10px rgba(0, 217, 192, 0);
+            }
+        }
+
+        .hero h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.8s ease 0.2s backwards;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradient-shift 3s ease infinite;
+            background-size: 200% 200%;
+        }
+
+        @keyframes gradient-shift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin-bottom: 3rem;
+            line-height: 1.8;
+            animation: fadeInUp 0.8s ease 0.4s backwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.8s ease 0.6s backwards;
+        }
+
+        .btn-primary, .btn-secondary {
+            padding: 1rem 2.5rem;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: var(--primary-dark);
+            box-shadow: 0 4px 15px rgba(0, 217, 192, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(0, 217, 192, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-light);
+            border: 2px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        /* Stats Section */
+        .stats-section {
+            padding: 80px 2rem;
+            background: var(--primary);
+            border-top: 1px solid var(--border);
+        }
+
+        .stats-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            animation: fadeInUp 0.6s ease backwards;
+        }
+
+        .stat-item:nth-child(1) { animation-delay: 0.1s; }
+        .stat-item:nth-child(2) { animation-delay: 0.2s; }
+        .stat-item:nth-child(3) { animation-delay: 0.3s; }
+        .stat-item:nth-child(4) { animation-delay: 0.4s; }
+
+        .stat-number {
+            font-family: 'Outfit', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+        }
+
+        .services {
+            padding: 120px 2rem;
+            background: var(--primary);
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 5rem;
+        }
+
+        .section-tag {
+            display: inline-block;
+            padding: 0.5rem 1.25rem;
+            background: rgba(0, 217, 192, 0.1);
+            border: 1px solid rgba(0, 217, 192, 0.3);
+            border-radius: 50px;
+            color: var(--accent);
+            font-size: 0.875rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .section-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            animation: fadeInUp 0.8s ease 0.2s backwards;
+        }
+
+        .section-description {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+            animation: fadeInUp 0.8s ease 0.4s backwards;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.6s ease backwards;
+        }
+
+        .service-card:nth-child(1) { animation-delay: 0.1s; }
+        .service-card:nth-child(2) { animation-delay: 0.2s; }
+        .service-card:nth-child(3) { animation-delay: 0.3s; }
+        .service-card:nth-child(4) { animation-delay: 0.4s; }
+        .service-card:nth-child(5) { animation-delay: 0.5s; }
+        .service-card:nth-child(6) { animation-delay: 0.6s; }
+        .service-card:nth-child(7) { animation-delay: 0.7s; }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-hover));
+            transform: scaleX(0);
+            transition: transform 0.4s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: var(--accent);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, rgba(0, 217, 192, 0.15), rgba(0, 251, 224, 0.1));
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.4s;
+        }
+
+        .service-card:hover .service-icon {
+            background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 10px 30px rgba(0, 217, 192, 0.4);
+        }
+
+        .service-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-light);
+            transition: color 0.3s;
+        }
+
+        .service-card:hover .service-title {
+            color: var(--accent);
+        }
+
+        .service-description {
+            color: var(--text-muted);
+            margin-bottom: 1.75rem;
+            line-height: 1.7;
+            font-size: 1.05rem;
+        }
+
+        .service-features {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .service-features li {
+            padding: 0.6rem 0;
+            color: var(--text-muted);
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+        }
+
+        .service-features li:hover {
+            color: var(--text-light);
+            padding-left: 0.5rem;
+        }
+
+        .service-features li::before {
+            content: '◆';
+            color: var(--accent);
+            font-size: 0.8rem;
+            flex-shrink: 0;
+            margin-top: 0.2rem;
+        }
+
+        .calendar-section {
+            padding: 120px 2rem;
+            background: var(--primary-dark);
+            position: relative;
+        }
+
+        .calendar-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .calendar-item {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            padding: 2rem;
+            transition: all 0.4s;
+            animation: fadeInUp 0.6s ease backwards;
+        }
+
+        .calendar-item:nth-child(1) { animation-delay: 0.1s; }
+        .calendar-item:nth-child(2) { animation-delay: 0.2s; }
+        .calendar-item:nth-child(3) { animation-delay: 0.3s; }
+        .calendar-item:nth-child(4) { animation-delay: 0.4s; }
+        .calendar-item:nth-child(5) { animation-delay: 0.5s; }
+        .calendar-item:nth-child(6) { animation-delay: 0.6s; }
+
+        .calendar-item:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .calendar-date {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--accent);
+            margin-bottom: 0.75rem;
+        }
+
+        .calendar-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+        }
+
+        .calendar-desc {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 100px 2rem;
+            background: var(--primary);
+            border-top: 1px solid var(--border);
+        }
+
+        .cta-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .cta-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .cta-text {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 2.5rem;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 10000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 25, 41, 0.9);
+            backdrop-filter: blur(10px);
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 3rem;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+            animation: slideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9) translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .close-modal {
+            position: absolute;
+            right: 1.5rem;
+            top: 1.5rem;
+            font-size: 2rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            background: none;
+            border: none;
+            transition: all 0.3s;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+        }
+
+        .close-modal:hover {
+            color: var(--text-light);
+            background: rgba(255, 255, 255, 0.05);
+            transform: rotate(90deg);
+        }
+
+        .modal-icon {
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            font-size: 2.5rem;
+            box-shadow: 0 10px 30px rgba(0, 217, 192, 0.3);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .modal-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .modal-text {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+
+        .contact-form {
+            text-align: left;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--text-light);
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: var(--text-muted);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 1rem 2rem;
+            background: var(--accent);
+            color: var(--primary-dark);
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 217, 192, 0.3);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn-submit:hover:not(:disabled) {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 217, 192, 0.4);
+        }
+
+        .btn-submit:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .contact-option {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .contact-option:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--accent);
+            transform: translateX(5px);
+        }
+
+        .option-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+        }
+
+        .option-content {
+            flex: 1;
+            text-align: left;
+        }
+
+        .option-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-light);
+            margin-bottom: 0.25rem;
+        }
+
+        .option-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .option-arrow {
+            font-size: 1.5rem;
+            color: var(--accent);
+        }
+
+        .contact-box {
+            background: rgba(0, 217, 192, 0.05);
+            border: 1px solid rgba(0, 217, 192, 0.3);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .contact-box:hover {
+            background: rgba(0, 217, 192, 0.1);
+            transform: scale(1.02);
+            border-color: var(--accent);
+        }
+
+        .contact-label {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-value {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--primary-dark);
+            border-top: 1px solid var(--border);
+            padding: 4rem 2rem 2rem;
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-about h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.75rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: var(--text-light);
+        }
+
+        .footer-about p {
+            color: var(--text-muted);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-section h4 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--text-light);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+            padding-left: 0.5rem;
+        }
+
+        .footer-bottom {
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .footer-text {
+            font-size: 1.25rem;
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        .footer-highlight {
+            background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+        }
+
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-hover));
+            z-index: 10001;
+            transition: width 0.1s;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .section-title {
+                font-size: 2.5rem;
+            }
+
+            .services-grid, .calendar-grid, .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .footer-text {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a class="logo" onclick="scrollToTop()">
+                <div class="logo-icon">◆</div>
+                Compliance Guide
+            </a>
+            <ul class="nav-links">
+                <li><a onclick="scrollToTop()">Home</a></li>
+                <li><a onclick="scrollToServices()">Services</a></li>
+                <li><a class="nav-cta" onclick="openContactInfo()">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <div class="status-dot"></div>
+                <span>Guiding You Through Every Compliance</span>
+            </div>
+
+            <h1>
+                Navigate Compliance<br>
+                with <span class="gradient-text">Confidence</span>
+            </h1>
+
+            <p>
+                We handle your ROC, GST, Income Tax, Labour Laws, and all statutory filings—ensuring you never miss a deadline. Focus on growing your business while we manage the complexity.
+            </p>
+
+            <div class="hero-buttons">
+                <button class="btn-primary" onclick="scrollToServices()">Explore Services</button>
+                <button class="btn-secondary" onclick="openContactForm()">Get Started</button>
+                <button class="btn-secondary" onclick="openContactInfo()">Contact Us</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-number">99.9%</div>
+                <div class="stat-label">On-Time Filing Rate</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">24/7</div>
+                <div class="stat-label">Expert Support</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">Compliance Rate</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">7+</div>
+                <div class="stat-label">Service Categories</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="services" id="services">
+        <div class="section-header">
+            <span class="section-tag">Our Services</span>
+            <h2 class="section-title">Comprehensive Compliance Solutions</h2>
+            <p class="section-description">
+                From statutory filings to strategic advisory, we provide end-to-end compliance management for Private Limited Companies.
+            </p>
+        </div>
+
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">📁</div>
+                <h3 class="service-title">Annual ROC Compliance</h3>
+                <p class="service-description">
+                    Stay compliant with MCA regulations through timely and accurate statutory filings.
+                </p>
+                <ul class="service-features">
+                    <li>AOC-4 Filing</li>
+                    <li>MGT7-A Filing</li>
+                    <li>ADT-1 (Appointment of Auditor)</li>
+                    <li>DIR-3 KYC</li>
+                </ul>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">🧾</div>
+                <h3 class="service-title">GST Compliance</h3>
+                <p class="service-description">
+                    Complete GST management from returns to reconciliation.
+                </p>
+                <ul class="service-features">
+                    <li>GSTR-1 Filing</li>
+                    <li>GSTR-3B Filing</li>
+                    <li>ITC Reconciliation with Purchase Records</li>
+                </ul>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">📄</div>
+                <h3 class="service-title">TDS Compliance</h3>
+                <p class="service-description">
+                    Comprehensive TDS management and timely return filing.
+                </p>
+                <ul class="service-features">
+                    <li>TDS Payment (Monthly)</li>
+                    <li>TDS Return Filing (Quarterly)</li>
+                </ul>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">📊</div>
+                <h3 class="service-title">Income Tax Compliance</h3>
+                <p class="service-description">
+                    Complete income tax solutions from filing to advance tax computation.
+                </p>
+                <ul class="service-features">
+                    <li>ITR Filing</li>
+                    <li>Advance Tax Computation</li>
+                </ul>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">👥</div>
+                <h3 class="service-title">Labour Law & Employee Compliance</h3>
+                <p class="service-description">
+                    Comprehensive payroll and labour law compliance solutions.
+                </p>
+                <ul class="service-features">
+                    <li>PF Return Filing</li>
+                    <li>ESI Return Filing</li>
+                </ul>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">📈</div>
+                <h3 class="service-title">Financial & Audit Support</h3>
+                <p class="service-description">
+                    Professional financial statement preparation and audit services.
+                </p>
+                <ul class="service-features">
+                    <li>Financial Statement Preparation with Notes to Accounts</li>
+                    <li>Statutory Audit of Financials by CA</li>
+                </ul>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">📋</div>
+                <h3 class="service-title">Support & Documentation</h3>
+                <p class="service-description">
+                    Complete documentation and board meeting support services.
+                </p>
+                <ul class="service-features">
+                    <li>Share Certificate Documentation</li>
+                    <li>Drafting Board Resolutions</li>
+                    <li>Compliance Calendars & Deadline Tracking</li>
+                    <li>Board Meeting Support & Documentation</li>
+                    <li>Monthly MIS Report (Business Analysis)</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="calendar-section">
+        <div class="calendar-container">
+            <div class="section-header">
+                <span class="section-tag">Compliance Calendar</span>
+                <h2 class="section-title">Never Miss a Deadline</h2>
+                <p class="section-description">
+                    Stay ahead with our interactive compliance calendar tracking all your critical due dates.
+                </p>
+            </div>
+
+            <div class="calendar-grid">
+                <div class="calendar-item">
+                    <div class="calendar-date">7th</div>
+                    <div class="calendar-title">TDS Payment</div>
+                    <div class="calendar-desc">Monthly TDS payment due</div>
+                </div>
+
+                <div class="calendar-item">
+                    <div class="calendar-date">11th</div>
+                    <div class="calendar-title">GSTR-1</div>
+                    <div class="calendar-desc">Outward supplies return</div>
+                </div>
+
+                <div class="calendar-item">
+                    <div class="calendar-date">15th</div>
+                    <div class="calendar-title">PF/ESI</div>
+                    <div class="calendar-desc">Monthly PF & ESI filing</div>
+                </div>
+
+                <div class="calendar-item">
+                    <div class="calendar-date">20th</div>
+                    <div class="calendar-title">GSTR-3B</div>
+                    <div class="calendar-desc">Monthly summary return</div>
+                </div>
+
+                <div class="calendar-item">
+                    <div class="calendar-date">30 Sep</div>
+                    <div class="calendar-title">DIR-3 KYC</div>
+                    <div class="calendar-desc">Annual director KYC</div>
+                </div>
+
+                <div class="calendar-item">
+                    <div class="calendar-date">30 Oct</div>
+                    <div class="calendar-title">AOC-4/MGT-7</div>
+                    <div class="calendar-desc">Annual ROC filings</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-content">
+            <h2 class="cta-title">Ready to Simplify Your <span class="gradient-text">Compliance Journey?</span></h2>
+            <p class="cta-text">Join hundreds of businesses who trust Compliance Guide for their regulatory needs. Get started today and experience stress-free compliance management.</p>
+            <button class="btn-primary" onclick="openContactForm()">Get Started Now</button>
+        </div>
+    </section>
+
+    <!-- Contact Form Modal -->
+    <div id="contactFormModal" class="modal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeContactForm()">&times;</button>
+            <div class="modal-icon">📝</div>
+            <h2 class="modal-title">Get Started</h2>
+            <p class="modal-text">
+                Connect with us on WhatsApp for instant support.
+            </p>
+            
+            <div class="contact-option" onclick="openWhatsApp()">
+                <div class="option-icon" style="background: linear-gradient(135deg, #25D366, #128C7E);">💬</div>
+                <div class="option-content">
+                    <div class="option-title">Connect on WhatsApp</div>
+                    <div class="option-desc">Start a conversation instantly</div>
+                </div>
+                <div class="option-arrow">→</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Info Modal -->
+    <div id="contactInfoModal" class="modal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeContactInfo()">&times;</button>
+            <div class="modal-icon">🤝</div>
+            <h2 class="modal-title">Let's Connect</h2>
+            <p class="modal-text">
+                Ready to simplify your compliance? Reach out to us and let's get started.
+            </p>
+            
+            <div class="contact-box">
+                <div class="contact-label">📧 Email Address</div>
+                <div class="contact-value">compliancebuddys@gmail.com</div>
+            </div>
+
+            <div class="contact-box">
+                <div class="contact-label">📞 Phone Number</div>
+                <div class="contact-value">+91 88825 11529</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <h3>Compliance Guide</h3>
+                    <p>
+                        Your trusted partner in navigating the complex world of business compliance. We combine expertise and personalized service to keep your business compliant and thriving.
+                    </p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a onclick="scrollToTop()">Home</a></li>
+                        <li><a onclick="scrollToServices()">Services</a></li>
+                        <li><a onclick="openContactInfo()">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <ul class="footer-links">
+                        <li><a style="cursor: default;">compliancebuddys@gmail.com</a></li>
+                        <li><a style="cursor: default;">+91 88825 11529</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p class="footer-text">
+                    Let's <span class="footer-highlight">Compliance Guide</span> guide you through every compliance need, so you can focus on <span class="footer-highlight">growing your business stress-free</span>.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        // Scroll Progress Bar
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('scrollProgress').style.width = scrolled + '%';
+        });
+
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Scroll Functions
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function scrollToServices() {
+            const servicesSection = document.getElementById('services');
+            const offset = 80;
+            const elementPosition = servicesSection.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - offset;
+            window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+        }
+
+        // Contact Form Modal
+        function openContactForm() {
+            document.getElementById('contactFormModal').classList.add('active');
+        }
+
+        function closeContactForm() {
+            document.getElementById('contactFormModal').classList.remove('active');
+        }
+
+        function openWhatsApp() {
+            const phoneNumber = '918882511529';
+            const message = encodeURIComponent('Hi, I would like to know more about Compliance Guide services.');
+            const whatsappURL = 'https://wa.me/' + phoneNumber + '?text=' + message;
+            window.open(whatsappURL, '_blank');
+            closeContactForm();
+        }
+
+        // Contact Info Modal
+        function openContactInfo() {
+            document.getElementById('contactInfoModal').classList.add('active');
+        }
+
+        function closeContactInfo() {
+            document.getElementById('contactInfoModal').classList.remove('active');
+        }
+
+        // Close modals when clicking outside
+        window.onclick = function(event) {
+            const formModal = document.getElementById('contactFormModal');
+            const infoModal = document.getElementById('contactInfoModal');
+            if (event.target == formModal) {
+                closeContactForm();
+            }
+            if (event.target == infoModal) {
+                closeContactInfo();
+            }
+        }
+
+        // Handle Form Submission
+        function handleSubmit(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('clientName').value;
+            const phone = document.getElementById('clientPhone').value;
+            const email = document.getElementById('clientEmail').value;
+            const message = document.getElementById('clientMessage').value;
+            
+            // Create mailto link
+            const subject = encodeURIComponent(`New Contact Request from ${name}`);
+            const body = encodeURIComponent(
+                `Name: ${name}\n` +
+                `Phone: ${phone}\n` +
+                `Email: ${email}\n\n` +
+                `Message:\n${message}`
+            );
+            
+            // Open email client
+            window.location.href = `mailto:compliancebuddys@gmail.com?subject=${subject}&body=${body}`;
+            
+            // Show success
+            showNotification('✅ Form submitted! Opening your email client...');
+            
+            // Close modal
+            setTimeout(() => {
+                closeContactForm();
+            }, 2000);
+        }
+
+        // Copy to Clipboard (improved - no error messages)
+        function copyText(text, type) {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(() => {
+                    showNotification(`✅ ${type === 'email' ? 'Email' : 'Phone number'} copied to clipboard!`);
+                }).catch(() => {
+                    // Silently fail - no error message shown to user
+                    // Fallback: show the text so user can copy manually
+                    showNotification('📋 Click and hold to copy');
+                });
+            } else {
+                // For older browsers - no error message
+                showNotification('📋 Click and hold to copy');
+            }
+        }
+
+        // Show Notification
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.textContent = message;
+            notification.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: var(--accent);
+                color: var(--primary-dark);
+                padding: 1.25rem 2.5rem;
+                border-radius: 15px;
+                font-weight: 600;
+                z-index: 20000;
+                animation: fadeInUp 0.3s ease;
+                box-shadow: 0 15px 40px rgba(0, 217, 192, 0.5);
+                font-size: 1.1rem;
+            `;
+            document.body.appendChild(notification);
+            
+            setTimeout( () => {
+                notification.style.opacity = '0';
+                notification.style.transform = 'translate(-50%, -50%) translateY(-20px)';
+                notification.style.transition = 'all 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 2500);
+        }
+    </script>
+</body>
+</html>
